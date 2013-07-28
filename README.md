@@ -1,3 +1,12 @@
+Made some modifications to config.py and declarative.py to get object relationships to work.
+
+Have also fixed issue 42. http://code.google.com/p/sqlautocode/issues/detail?id=42
+
+Note that sqlautocode still doesn't generate relationships for when tables with overlapping composite foreign keys exist.
+
+
+ORIGINAL README.md http://code.google.com/p/sqlautocode/
+
 AutoCode is a flexible tool to autogenerate a model from an existing database.
 
 This is a slightly different approach to SqlSoup, 
