@@ -289,9 +289,10 @@ class ModelFactory(object):
                     secondaryjoin = ''
                     foo = plural(rel.secondary.name)
                 backref=''
+                join_depth = ", join_depth=%s, lazy=%s"%('2', '"joined"') # automatically eager load at depth 2
 #                if rel.backref:
 #                    backref=", backref='%s'"%rel.backref.key
-                return "%s = relationship('%s'%s%s%s%s)"%(foo, target, primaryjoin, secondary, secondaryjoin, backref)
+                return "%s = relationship('%s'%s%s%s%s%s)"%(foo, target, primaryjoin, secondary, secondaryjoin, join_depth, backref)
                 
             @classmethod
             def __repr__(cls):
