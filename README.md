@@ -4,6 +4,7 @@ Have also fixed issue 42. http://code.google.com/p/sqlautocode/issues/detail?id=
 
 Note that sqlautocode still doesn't generate relationships for when tables with overlapping composite foreign keys exist.
 
+---
 
 ORIGINAL README.md http://code.google.com/p/sqlautocode/
 
