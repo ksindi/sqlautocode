@@ -2,7 +2,7 @@ Made some modifications to config.py and declarative.py to get object relationsh
 
 Have also fixed issue 42. http://code.google.com/p/sqlautocode/issues/detail?id=42
 
-Note that sqlautocode still doesn't generate relationships for when tables with overlapping composite foreign keys exist.
+Note that sqlautocode doesn't generate relationships for tables where overlapping composite foreign keys exist.
 
 ---
 
