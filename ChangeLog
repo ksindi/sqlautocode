@@ -1,0 +1,172 @@
+0.6 (unreleased)
+	  Some more fixes for Issues 16 to 24
+	  [spamsch]
+
+	  Removing support for SA 0.5.x
+	  [spamsch]
+
+0.6b1
+	  Fixes for SA 0.6.x
+	  [percious]
+
+	  Many other fixes
+	  [percious, spamsch]
+
+0.5.3 
+	  Added declarative generation
+	  [percious]
+	  
+	  Added tests for declarative generation
+	  [percious]
+
+	  Removed monkey-patching for just importing sqlautocode
+	  [percious]
+	  
+	  
+0.5.2 (UNRELEASED)
+	- Added table prefix and suffix options (by Wayne Wight)
+	  [spamsch]
+
+	- Fixed assignment error in __init__.py (Issue 10)
+	  [spamsch]
+
+	- Added setuptools script for project management.
+	  [jaraco]
+	  
+	- Fixed issue with sqlalchemy version checking when it contains non-numeric characters (Issue 7).
+	  [jaraco]
+	  
+	- Implemented workaround for issue 9: schema handling when no schema is specified.
+	  [jaraco]
+
+0.5.1 (10.01.2008)
+    - Table matching is now chattier about misses.
+	  [jek]
+        
+	- Table globbing now supports the full glob syntax
+	  [jek]
+	 
+	- Tables in --tables can be "quot*ed" to escape globbing chars.
+	  [jek]
+	
+        - Engine url is no longer an -option (it's required!)
+	  New syntax is 'autocode.py dburl://...'
+	  [jek]
+
+	- Detection of a SQLAlchemy installation is now a little friendlier.
+	  [jek]
+
+	- Can now choose the generated file --encoding.
+	  [jek]
+
+	- Handling of multi-byte and funk$ky schema identifiers is improved
+	  but not yet 100%.
+	  [jek]
+	
+        - Fixed example code
+	  [jek]
+	
+        - Fix for indexes with funky$column-names
+	  [jek]
+
+        - Indexes now repr like other schema items
+	  [jek]
+	
+	- Column types now emit their arguments (e.g. VARCHAR(32))
+	  [jek]
+
+	- Fixed parse errors in emitted column definitions
+	  [jek]
+
+	- Casting to generic column types is now optional
+	  [jek]
+
+	- Fixed logic when casting to a generic column type
+	  [jek]
+
+	- Fixed Python 2.5 compatibility issue
+	  [jek]
+
+	- Only emitting schema= on Tables when --schema is present
+	  [jek]
+	  
+	- Fixed index generation
+	  [jek]
+	
+0.5 (13.11.2007)
+
+	- Fixed example code to use limit()
+	  [spamsch]
+
+	- Fixed formatter to handle types correctly
+	  [spamsch]
+
+	- Adapted to new Index handling
+	  [spamsch]
+
+	- Fixed commandline support for example generation
+	  [spamsch]
+
+	- Added index listing patch for pgsql
+	  [spamsch]
+
+	- Removed custom autoloader stuff
+	  [spamsch]
+
+	- Removed 0.3 specific code
+	  [spamsch]
+
+	- Added support for z3c.sqlalchemy
+	  [spamsch]
+
+	- Refactored some code
+	  [spamsch]
+
+0.4 (10.10.2007)
+
+	- Restructured code to make this module more project like
+	  and to ease the code management.
+	  [spamsch]
+	
+	- Support for globbing character in table names
+	  [spamsch]
+
+	- More robust argument handling
+	  [spamsch]
+
+	- Making schema and table selection possible
+	  [spamsch]
+
+	- Make autocode generate some example code
+	  [spamsch]
+
+	- Fixed some minor bugs
+	  [spamsch]
+
+	- Add full commandline support and some options
+	  [spamsch]
+
+0.3 (25.07.2007) 
+
+	- Simplified code a bit
+	  [sdobrev]
+
+	- Added SQLite and PostGres support
+	  [sdobrev]
+
+0.2 (17.07.2007)
+
+	- Takes arguments on the command line to select the dburl and
+   	  the output destination
+	  [cdevienne]
+	 
+   	- Replace a bunch of database specific types by generic ones.
+   	  This is incomplete as it feats only my needs for a mysql to mssql
+   	  database conversion.
+	  [cdevienne]
+	  
+   	- Output the indexes and ForeignKeyConstraints (including multi-columns
+      ones) correctly
+	  [cdevienne]
+
+0.1 (24.02.2007)
