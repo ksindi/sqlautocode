@@ -277,7 +277,7 @@ class ModelFactory(object):
                 if rel.secondary is not None:
                     """
                     **HACK**: If there is a secondary relationship like between Venue, Event, and Event_Type, then I'm only
-                    going show a primary relationship. So that I get the relational definition for security Security 
+                    going show a primary relationship. 
                     "Events = relationship('Event',  primaryjoin='Venue.id==Event.venue_id')" and not 
                     "Event_Types = relation('EventType', primaryjoin='Venue.id==Event.venue_id', secondary=Event, secondaryjoin='Event.event_type_id==EventType.id')"
                     """
