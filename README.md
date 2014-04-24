@@ -14,6 +14,7 @@ Note that sqlautocode doesn't generate relationships for tables where overlappin
 ---
 
 http://code.google.com/p/sqlautocode/
+
 ORIGINAL README.md
 
 AutoCode is a flexible tool to autogenerate a model from an existing database.
