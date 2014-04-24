@@ -1,3 +1,10 @@
+sqlautocode
+===========
+
+Effort discontinued. Have switched to <a href="https://pypi.python.org/pypi/sqlacodegen">sqlacodegen</a> which is cleaner, does a better job at generating model, and works using SQLAlchemy >= 0.9 and Python 3. You can view my fork of the project <a href="https://github.com/ksindi/sqlacodegen">here</a>.
+
+---
+
 Made some modifications to config.py and declarative.py to get object relationships to work.
 
 Have also fixed issue 42. http://code.google.com/p/sqlautocode/issues/detail?id=42
