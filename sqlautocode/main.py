@@ -48,7 +48,10 @@ def main():
         except NotImplementedError:
             reflection_schema = None
 
-    tablenames = inspector.get_table_names(reflection_schema)
+    tablenames = (
+        inspector.get_table_names(reflection_schema)
+        + inspector.get_view_names(reflection_schema)
+    )
 
     # fixme: don't set up output until we're sure there's work to do!
     if options.tables:
