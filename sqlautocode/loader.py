@@ -5,6 +5,7 @@ from sqlalchemy.databases import postgres
 class AutoLoader(object):
     pass
 
+
 class PGIndexLoader(AutoLoader):
     """ SA does not load indexes for us """
 
@@ -13,7 +14,7 @@ class PGIndexLoader(AutoLoader):
     def __init__(self, db):
         ix = {}
         for name, tbl_name, sqltext in db.execute(self.sql4indexes):
-            ix.setdefault(tbl_name, []).append( (name, sqltext) )
+            ix.setdefault(tbl_name, []).append((name, sqltext))
         self._indexes = ix
 
     def indexes(self, table):

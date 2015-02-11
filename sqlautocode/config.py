@@ -1,5 +1,5 @@
 #!python
-#-*- coding: UTF-8 -*-
+# -*- coding: UTF-8 -*-
 
 import optparse
 import os
@@ -9,8 +9,9 @@ import re
 options = None
 out = sys.stdout
 err = sys.stderr
-dburl  = None
+dburl = None
 engine = None
+
 
 # TODO: encoding (default utf-8)
 
@@ -82,12 +83,11 @@ Example: ./autocode.py postgres://user:password@myhost/database -o out.py""")
         "-d", "--declarative",
         help="Generate declarative SA code",
         action="store_true", dest="declarative")
-    
+
     parser.add_option(
         "-n", "--interactive",
         help="Generate Interactive example in your code.",
         action="store_true", dest="interactive")
-
 
     parser.set_defaults(tables=[],
                         encoding='utf-8',
@@ -95,6 +95,7 @@ Example: ./autocode.py postgres://user:password@myhost/database -o out.py""")
                         table_suffix='')
 
     return parser
+
 
 def _prep_tables(option, opt_str, value, parser):
     if not value:
@@ -104,15 +105,17 @@ def _prep_tables(option, opt_str, value, parser):
                                 for x in value.split(',')
                                 if x.strip() != '']
 
+
 def _prep_schema(option, opt_str, value, parser):
-    #handle multiple schemas on the command line
+    # handle multiple schemas on the command line
     value = [x.strip()
-                for x in value.split(',')
-                if x.strip() != '']
+             for x in value.split(',')
+             if x.strip() != '']
     if len(value) == 1:
         parser.values.schema = value[0]
         return
     parser.values.schema = value
+
 
 def _version_check(parser):
     try:
@@ -132,6 +135,7 @@ def _version_check(parser):
         if version_info < (0, 4):
             parser.error("SQLAlchemy version 0.4.0 or higher is required.")
 
+
 def _setup_engine(parser, url):
     global engine
 
@@ -146,8 +150,9 @@ def _setup_engine(parser, url):
 
 def _instrument():
     # monkeypatch SQLAlchemy __repr__ methods
-    import formatter
-    import loader
+    from . import formatter  # noqa
+    from . import loader  # noqa
+
 
 def _set_output(path, overwrite=False):
     if os.path.exists(path) and not overwrite:
@@ -183,7 +188,6 @@ def configure(argv=sys.argv):
     _setup_engine(parser, dburl)
 
     _instrument()
-    
+
     if options.output is not None:
         _set_output(options.output, options.force)
-

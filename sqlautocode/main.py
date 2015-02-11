@@ -1,7 +1,11 @@
 import sys
-import config, util, constants
-from util import emit
-from declarative import ModelFactory
+
+from . import config
+from . import constants
+from . import util
+from .declarative import ModelFactory
+from .util import emit
+
 
 def main():
     config.configure()
@@ -14,9 +18,9 @@ def main():
         config.schema = None
         if options.schema:
             config.schema = options.schema
-        config.example=False
+        config.example = False
         if options.example:
-            config.example=True
+            config.example = True
         factory = ModelFactory(config)
         emit(repr(factory))
         config.out.close()
@@ -26,7 +30,7 @@ def main():
 
     import formatter
     formatter.monkey_patch_sa()
-    
+
     import sqlalchemy
     from sqlalchemy.engine.reflection import Inspector
     db, options = config.engine, config.options
@@ -36,8 +40,8 @@ def main():
     conn = db.connect()
     inspector = Inspector.from_engine(conn)
 
-    if options.schema != None:
-        reflection_schema=options.schema
+    if options.schema is not None:
+        reflection_schema = options.schema
     else:
         try:
             reflection_schema = inspector.default_schema_name
@@ -66,7 +70,6 @@ def main():
     else:
         dialect = 'from sqlalchemy.databases.%s import *\n' % db.name
 
-    
     header = options.z3c and constants.HEADER_Z3C or constants.HEADER
     emit(header % {'dialect': dialect, 'encoding': options.encoding})
 
@@ -86,18 +89,21 @@ def main():
         else:
             original_schema = options.schema
 
-        INC = '\n\n'
+        inc = '\n\n'
         if options.z3c:
-            INC = INC + 4*' '
+            inc = inc + 4 * ' '
 
-        emit('%s%s%s%s = %r' % (INC, options.table_prefix, tname, options.table_suffix, table))
+        emit('%s%s%s%s = %r' % (inc,
+                                options.table_prefix,
+                                tname,
+                                options.table_suffix, table))
 
         if options.z3c:
-            emit(INC + ('class %(tn)sObject(MappedClassBase): pass\n'
-                             'mapper(%(tn)sObject, %(tn)s)') % {'tn':tname})
+            emit(inc + ('class %(tn)sObject(MappedClassBase): pass\n'
+                        'mapper(%(tn)sObject, %(tn)s)') % {'tn': tname})
 
         table.schema = original_schema
-        
+
         # directly print indices after table def
         if not options.noindex:
             indexes = []
@@ -106,7 +112,9 @@ def main():
                 if hasattr(db.dialect, 'indexloader'):
                     indexes = db.dialect.indexloader(db).indexes(table)
                 else:
-                    print >>config.err, 'It seems that this dialect does not support indexes!'
+                    print >> config.err, (
+                        'It seems that this dialect does not support indexes!'
+                    )
             else:
                 indexes = list(table.indexes)
 
@@ -124,6 +132,6 @@ def main():
         emit('\n')
         config.out.close()
         config.out = sys.stdout
-        print >>config.err, "Output written to %s" % options.output
+        print >> config.err, "Output written to %s" % options.output
 
 # vim:ts=4:sw=4:expandtab

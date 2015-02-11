@@ -1,8 +1,11 @@
 import sqlalchemy
-import config, constants, util
+
+from . import config, constants, util
+
 
 def textclause_repr(self):
     return 'text(%r)' % self.text
+
 
 def table_repr(self):
     data = {
@@ -10,15 +13,16 @@ def table_repr(self):
         'columns': constants.NLTAB.join([repr(cl) for cl in self.columns]),
         'constraints': constants.NLTAB.join(
             [repr(cn) for cn in self.constraints
-            if not isinstance(cn, sqlalchemy.PrimaryKeyConstraint)]),
+             if not isinstance(cn, sqlalchemy.PrimaryKeyConstraint)]),
         'index': '',
-        'schema': self.schema != None and "schema='%s'" % self.schema or '',
-        }
+        'schema': self.schema is not None and "schema='%s'" % self.schema or '',
+    }
 
     if data['constraints']:
         data['constraints'] = data['constraints'] + ','
 
     return util.as_out_str(constants.TABLE % data)
+
 
 def _repr_coltype_as(coltype, as_type):
     """repr a Type instance as a super type."""
@@ -27,27 +31,26 @@ def _repr_coltype_as(coltype, as_type):
     specimen.__dict__ = coltype.__dict__
     return repr(specimen)
 
+
 def column_repr(self):
     kwarg = []
     if self.key != self.name:
-        kwarg.append( 'key')
+        kwarg.append('key')
 
     if hasattr(self, 'primary_key'):
-        kwarg.append( 'primary_key')
+        kwarg.append('primary_key')
 
     if not self.nullable:
-        kwarg.append( 'nullable')
+        kwarg.append('nullable')
     if self.onupdate:
-        kwarg.append( 'onupdate')
+        kwarg.append('onupdate')
     if self.default:
-        kwarg.append( 'default')
+        kwarg.append('default')
     elif self.server_default:
         self.default = self.server_default.arg
-        kwarg.append( 'default')
+        kwarg.append('default')
 
-    ks = ', '.join('%s=%r' % (k, getattr(self, k)) for k in kwarg )
-
-    name = self.name
+    ks = ', '.join('%s=%r' % (k, getattr(self, k)) for k in kwarg)
 
     if not hasattr(config, 'options') and config.options.generictypes:
         coltype = repr(self.type)
@@ -58,8 +61,8 @@ def column_repr(self):
         # from sqlalchemy.types, dropping any database-specific type
         # arguments.
         for base in type(self.type).__mro__:
-            if (base.__module__ == 'sqlalchemy.types' and
-                base.__name__ in sqlalchemy.__all__):
+            if all((base.__module__ == 'sqlalchemy.types',
+                    base.__name__ in sqlalchemy.__all__)):
                 coltype = _repr_coltype_as(self.type, base)
                 break
         # FIXME: if a dialect has a non-standard type that does not
@@ -83,12 +86,14 @@ def column_repr(self):
 
     return util.as_out_str(constants.COLUMN % data)
 
+
 def foreignkeyconstraint_repr(self):
     data = {'name': repr(self.name),
             'names': repr([x.parent.name for x in self.elements]),
             'specs': repr([x._get_colspec() for x in self.elements])
             }
     return util.as_out_str(constants.FOREIGN_KEY % data)
+
 
 def index_repr(index):
     cols = []
@@ -104,6 +109,7 @@ def index_repr(index):
             'unique': repr(index.unique),
             }
     return util.as_out_str(constants.INDEX % data)
+
 
 def monkey_patch_sa():
     sqlalchemy.sql.expression._TextClause.__repr__ = textclause_repr

@@ -1,7 +1,7 @@
 # Nice print stuff
-TAB = 12*' '
+TAB = 12 * ' '
 
-NLTAB = ',\n'+TAB
+NLTAB = ',\n' + TAB
 
 USAGE = """usage: autoload.py [options]
 
@@ -116,4 +116,3 @@ try:
 except:
     'Failed. please easy_install ipython'
 """
-
